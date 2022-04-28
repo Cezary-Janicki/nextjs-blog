@@ -1,18 +1,18 @@
-import fs from 'fs'
+import fs from "fs"
 import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
 
-const postsDirectory = path.join(process.cwd(), 'posts json')
+const postsDirectory = path.join(process.cwd(), 'postsJson')
 
-export function getSortedPostsData() {
+export function getSortedPostsDataJson() {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory)
   const allPostsData = fileNames.map(fileName => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.json$/, '')
-
+console.log(id)
     // Read markdown file as string
     const fullPath = path.join(postsDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8') // need to add single lines to it! map function needs to be used
@@ -36,7 +36,7 @@ export function getSortedPostsData() {
   })
 }
 
-export function getAllPostIds() {
+export function getAllPostIdsJson() {
   const fileNames = fs.readdirSync(postsDirectory)
   return fileNames.map(fileName => {
     return {
@@ -47,7 +47,7 @@ export function getAllPostIds() {
   })
 }
 
-export async function getPostData(id) {
+export async function getPostDataJson(id) {
   const fullPath = path.join(postsDirectory, `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
@@ -67,3 +67,4 @@ export async function getPostData(id) {
     ...matterResult.data
   }
 }
+
